@@ -161,6 +161,7 @@ void send(const char* fileName)
  	  * sending a message of type SENDER_DATA_TYPE with size field set to 0. 	
 	  */
 	 printf("Nothing else to send\n");
+	 sndMsg.mtype = SENDER_DATA_TYPE;
 	 sndMsg.size = 0;
 	 msgsnd(msqid, &sndMsg, sizeof(message)-sizeof(long), 0);
 		

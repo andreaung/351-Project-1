@@ -137,6 +137,7 @@ void mainLoop()
 			printf("message recieved.\n");	
 	
 		}
+		msgSize = rcvMsg.size; 
 		/* If the sender is not telling us that we are done, then get to work */
 		if(msgSize != 0)
 		{
@@ -162,7 +163,7 @@ void mainLoop()
 		/* We are done */
 		else
 		{
-			printf("nothing else to read\n");
+			printf("Nothing else to read\nProgram is exiting\n");
 			/* Close the file */
 			fclose(fp);
 		}
