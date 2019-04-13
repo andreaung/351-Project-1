@@ -9,6 +9,8 @@ Group Memebers:
   
   Brandon Hoang,  brandonhoang98@csu.fullerton.edu
 
+  Ryan Vo, rvo7496@csu.fullerton.edu
+  
 Programming Lanugage Used: C++
 
 How To Execute The Program:
