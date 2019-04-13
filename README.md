@@ -6,6 +6,7 @@ Group Memebers:
   Jimmy Xuan,   jimmyxuan@csu.fullerton.edu 
   
   Andrea Ung,   andreaung@csu.fullerton.edu
-
+  
+  Brandon Hoang,  brandonhoang98@csu.fullerton.edu
 
 Programming Lanugage Used: C++
