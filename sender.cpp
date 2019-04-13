@@ -14,7 +14,6 @@
 
 /* The ids for the shared memory segment and the message queue */
 int shmid, msqid;
-
 /* The pointer to the shared memory */
 void* sharedMemPtr;
 
@@ -41,7 +40,7 @@ void init(int& shmid, int& msqid, void*& sharedMemPtr)
 
 	key_t key = ftok("keyfile.txt", 'a');
 
-	if (key == -1) 
+	if (key == -1) 							/*error checking */
 	{
 		perror("ftok error from sender\n");
 		exit(EXIT_FAILURE); 
@@ -53,7 +52,7 @@ void init(int& shmid, int& msqid, void*& sharedMemPtr)
 	
 	shmid = shmget(key, SHARED_MEMORY_CHUNK_SIZE, 0666 |IPC_CREAT);
 
-	if(shmid == -1)
+	if(shmid == -1)							/*error checking */
 	{
 		perror("shmid error from sender\n");
 		exit(EXIT_FAILURE); 
@@ -66,6 +65,7 @@ void init(int& shmid, int& msqid, void*& sharedMemPtr)
 		perror("sharedMemPtr error from sender\n");
 		exit(EXIT_FAILURE); 
 	}
+
 	msqid = msgget(key, 0666 |IPC_CREAT);
 
 	if(msqid == -1)
@@ -133,7 +133,7 @@ void send(const char* fileName)
 		sndMsg.mtype = SENDER_DATA_TYPE; 
 		int returnval = msgsnd(msqid, &sndMsg, sizeof(message) - sizeof(long), 0);
 
-		if(returnval == -1)
+		if(returnval == -1)						/*error checking */
 		{
 			perror("msgsnd error in sender");
 			exit(EXIT_FAILURE);

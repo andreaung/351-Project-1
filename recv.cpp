@@ -48,6 +48,11 @@ void init(int& shmid, int& msqid, void*& sharedMemPtr)
 
 	key_t key = ftok("keyfile.txt", 'a');
 
+	if (key == -1)  						/*error checking */
+	{
+		perror("ftok error from recv\n");
+		exit(EXIT_FAILURE); 
+	}
 	/* Allocates a piece of shared memory. The size of the segment must be SHARED_MEMORY_CHUNK_SIZE. */
 	/* Attach to the shared memory */
 	/* Create a message queue */
@@ -55,9 +60,27 @@ void init(int& shmid, int& msqid, void*& sharedMemPtr)
 
 	shmid = shmget(key, SHARED_MEMORY_CHUNK_SIZE, 0666);
 
+	if(shmid == -1)								/*error checking */
+	{
+		perror("shmid error from recv\n");
+		exit(EXIT_FAILURE); 
+	}
+
 	sharedMemPtr = shmat(shmid,(void*)0,0); 
 
+	if(sharedMemPtr == (void*)(-1))
+	{
+		perror("sharedMemPtr error from recv\n");
+		exit(EXIT_FAILURE); 
+	}
+
 	msqid = msgget(key, 0666 |IPC_CREAT);
+	
+	if(msqid == -1)
+	{
+		perror("msqid error from recv\n");
+		exit(EXIT_FAILURE); 
+	}
 }
  
 
@@ -128,8 +151,9 @@ void mainLoop()
  			 * does not matter in this case). 
  			 */
 
-			 int val2 = msgsnd(msqid, &sndMsg, sizeof(message) - sizeof(long), 0);
-			if (val2 == -1)
+			int val2 = msgsnd(msqid, &sndMsg, sizeof(message) - sizeof(long), 0);
+
+			if (val2 == -1)					/*error checking */
 			{
 				perror("msgsnd error in reciever\n");
 				exit(EXIT_FAILURE);
